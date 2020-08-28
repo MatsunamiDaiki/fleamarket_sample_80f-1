@@ -1,3 +1,38 @@
+# freemarket_sample_80f
+フリマアプリのクローンサイト。
+
+## Description
+フリマアプリのクローンサイト。誰でも簡単に売り買いが楽しめるサイトです。
+ユーザー登録、商品出品、商品購入、商品編集、コメント投稿などの機能が実装されています。
+
+
+## Features
+
+- haml/SASS記法と、命名規則BEMを使ったマークアップ
+- ウィザード形式を用いたユーザー登録フォーム
+- ajaxを使用した非同期処理
+- pay.jpによる購入処理
+- capistranoによるAWS EC2への自動デプロイ
+- ActiveStorageを使用しAWS S3への画像アップロード
+- RSpecを使った単体テスト
+
+## Requirement
+
+- Ruby 2.6.5
+- Rails 6.0.0
+
+
+## Installation
+
+    $ git clone https://github.com/MItsusawa-5/fleamarket_sample_80f
+    $ cd freemarket_sample_80f
+    $ bundle install
+
+
+
+
+
+
 ## users table
 |Column|Type|Options|
 |------|----|-------|
@@ -14,7 +49,7 @@
 - has_one :address
 - has_many :cards
 - has_many :items
-
+- has_many :comments
 ## cards table
 |Column|Type|Options|
 |------|----|-------|
@@ -33,7 +68,7 @@
 |prefectures|string|null false|
 |city|string|null false|
 |number|string|null false|
-|building|string|null false|
+|building|string|
 |phone|string|unique true|
 |user_id|integer|null false, foreign_key true|
 
@@ -59,6 +94,7 @@
 - belongs_to :user
 - belongs_to :category
 - has_many :images
+- has_many :comments
 
 ## categories table
 |Column|Type|Options|
@@ -72,8 +108,19 @@
 |Column|Type|Options|
 |------|----|-------|
 |name|text|null false|
-|item_id|integer|null false, foreign_key true
+|item_id|integer|null false, foreign_key true|
 
 
 ### Association
 - belongs_to :item
+
+## comment table
+|Column|Type|Options|
+|------|----|-------|
+|comment_content|string|
+|user_id|integer|null false, foreign_key true|
+|item_id|integer|null false, foreign_key true|
+
+### Association
+- belongs_to :item
+- belongs_to :user
